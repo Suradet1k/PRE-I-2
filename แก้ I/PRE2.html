@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>แก้ i กลศาสตร์</title>
+  <style>
+    .container {
+      display: flex;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    .left-column {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .right-column {
+      flex: 1;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .input-container label {
+      margin-bottom: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      color: white;
+      background-color: #007bff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #bfbfbf;
+      cursor: not-allowed;
+    }
+
+    .image-container {
+      text-align: center;
+    } 
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="left-column">
+    <h2>คำนวณหา v และ a</h2>
+
+    <div class="input-container">
+      <label for="inputA">กรอกค่า a:</label>
+      <input type="number" id="inputA" value="1">
+    </div>
+
+    <div class="input-container">
+      <label for="inputN">กรอกค่า n:</label>
+      <input type="number" id="inputN" value="1">
+    </div>
+
+    <div class="input-container">
+      <label for="inputC">กรอกค่า c:</label>
+      <input type="number" id="inputC" value="0">
+    </div>
+    <!--โค้ดกำหนดค่าa n และ c ตามสูตรดิฟ ax^n+c-->
+    <div class="input-container">
+      <label for="inputX">เลือกตัวแปร x (a-z):</label>
+      <select id="inputX">
+        <option value="a">a</option>
+        <option value="b">b</option>
+        <option value="c">c</option>
+        <option value="d">d</option>
+        <option value="e">e</option>
+        <option value="f">f</option>
+        <option value="g">g</option>
+        <option value="h">h</option>
+        <option value="i">i</option>
+        <option value="j">j</option>
+        <option value="k">k</option>
+        <option value="l">l</option>
+        <option value="m">m</option>
+        <option value="n">n</option>
+        <option value="o">o</option>
+        <option value="p">p</option>
+        <option value="q">q</option>
+        <option value="r">r</option>
+        <option value="s">s</option>
+        <option value="t">t</option>
+        <option value="u">u</option>
+        <option value="v">v</option>
+        <option value="w">w</option>
+        <option value="x">x</option>
+        <option value="y">y</option>
+        <option value="z">z</option>
+        <!-- เพิ่มตัวเลือก ตัวแปรใส่ได้ตามต้องการ -->
+      </select>
+    </div>
+
+    <button onclick="calculateDerivative()">คำนวณ</button>
+    <button onclick="clearResults()">ล้างคำตอบ</button>
+    <!--โค้ดปุ่มคำนวณ-->
+    <p id="derivativeResult"></p>
+
+    <hr>
+
+    <h2>คำนวณหา v ด้วยผลต่างของ s ส่วน t</h2>
+
+    <div class="input-container">
+      <label for="inputX1">ค่า s1:</label>
+      <input type="number" id="inputX1" value="0">
+    </div>
+
+    <div class="input-container">
+      <label for="inputX2">ค่า s2:</label>
+      <input type="number" id="inputX2" value="0">
+    </div>
+
+    <div class="input-container">
+      <label for="inputT1">ค่า t1:</label>
+      <input type="number" id="inputT1" value="0">
+    </div>
+
+    <div class="input-container">
+      <label for="inputT2">ค่า t2:</label>
+      <input type="number" id="inputT2" value="0">
+    </div>
+    <!--โค้ดใส่ค่า s และ t-->
+    <button onclick="calculateDifferenceFormula()">คำนวณ</button>
+    <button onclick="clearResults()">ล้างคำตอบ</button>
+  <!--โค้ดปุ่มคำนวน-->
+    <p id="differenceFormulaResult"></p>
+  </div>
+
+  <div class="right-column">
+    <h2>นายสุรเดช แก้วทองมา 6340205860</h2>
+    <div class="image-container">
+      <img src="1.jpg" alt="1.jpg" width="560"><!--โค้ดใสรุป-->
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculateDerivative() {
+    const a = parseFloat(document.getElementById('inputA').value);
+    const n = parseFloat(document.getElementById('inputN').value);
+    const c = parseFloat(document.getElementById('inputC').value);
+    const inputX = document.getElementById('inputX').value;
+
+    const derivativeResult = calculateDerivativeAxNPlusC(a, n, c, inputX);
+    document.getElementById('derivativeResult').innerText = `คำตอบคือ : ${a}x^${n} + ${c} คือ ${derivativeResult}`;
+  }//การดึงข้อมูลโค้ดที่เรากอก
+
+  function calculateDifferenceFormula() {
+    const x1 = parseFloat(document.getElementById('inputX1').value);
+    const x2 = parseFloat(document.getElementById('inputX2').value);
+    const t1 = parseFloat(document.getElementById('inputT1').value);
+    const t2 = parseFloat(document.getElementById('inputT2').value);
+
+    const differenceFormulaResult = calculateDifference(x2, x1, t2, t1);
+    document.getElementById('differenceFormulaResult').innerText = `v เท่ากับ: ${(differenceFormulaResult !== null) ? differenceFormulaResult : 'กรอกค่าทั้งหมด'}`;
+  }//การดึงข้อมูลโค้ดที่เรากอก
+
+  function calculateDerivativeAxNPlusC(a, n, c, x) {
+    const derivative = `${a * n}x^${n - 1}`;
+
+    return derivative.replace('x', x);
+  }//แก้สมการด้วยax^n+c
+
+  function calculateDifference(x2, x1, t2, t1) {
+    if (!isNaN(x1) && !isNaN(x2) && !isNaN(t1) && !isNaN(t2) && (t2 !== t1)) {
+      return (x2 - x1) / (t2 - t1);
+    } else {
+      return null;
+    }
+  }//แก้สมการผลต่าง
+
+  function clearResults() {
+    document.getElementById('derivativeResult').innerText = '';
+    document.getElementById('differenceFormulaResult').innerText = '';
+  }//โค้ดล้างคำตอบ
+</script>
+
+</body>
+</html>
